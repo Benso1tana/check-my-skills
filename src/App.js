@@ -57,12 +57,12 @@ function App() {
 
   const addItem = (e) => {
     e.preventDefault();
-    if (currentIndex == undefined) {
+    if (currentIndex === undefined) {
       console.log("ajout")
       if (currentItem.trim() && currentNumber > 0) 
     {
       setShoppingList([ ... shoppingList,{
-
+        
         title: currentItem, quantity: currentNumber
       }
       ])
@@ -77,6 +77,8 @@ function App() {
         setShoppingList(newList)
         setCurrentItem("")
         setCurrentNumber(0)  
+        setCurrentIndex(undefined)
+        console.log(currentIndex)
       }else{alert("il faut remplir tous les champs ")}
 
     }
@@ -85,10 +87,10 @@ function App() {
   };
 
   const removeItem = (index) => {
-    console.log(index)  ;
-    shoppingList.splice(index-1, 1);
-    setShoppingList(shoppingList);
-    setCurrentItem(" "); // pour mettre à jour l'interface 
+    console.log(index )  ;
+    let titre = shoppingList[index].title; // le titre d'élement qu'on veut supprimer 
+    setShoppingList(shoppingList => shoppingList.filter(item => item.title !== titre));
+    
     
   };
 
