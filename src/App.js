@@ -48,7 +48,7 @@ function App() {
 
   const [shoppingList, setShoppingList] = useState([
     { title: "bananas", quantity: 2 },
-    { title: "cherries", quantity: 5 },
+    { title: "cherries", quantity: 3 },
   ]);
 
   const [currentItem, setCurrentItem] = useState("");
@@ -56,22 +56,36 @@ function App() {
 
   const addItem = (e) => {
     e.preventDefault();
+    if (currentItem.trim() && currentNumber > 0) 
+    {
+      setShoppingList([ ... shoppingList,{
 
-    // code here
+        title: currentItem, quantity: currentNumber
+      }
+      ])
+      setCurrentItem("")
+      setCurrentNumber(0)
+      }
     // don't forget to clear the input values after adding an item to the list
   };
 
   const removeItem = (index) => {
-    // code here
+    console.log(index)  ;
+    shoppingList.splice(index-1, 1);
+    setShoppingList(shoppingList);
+    setCurrentItem(" ");
+    
+    
+    
   };
 
   const onTextChanged = (e) => {
-    // code here
+    setCurrentItem(e.target.value)
     // oups, nothing happens when you type in the input, change this part to fix that
   };
 
   const onNumberChanged = (e) => {
-    // code here
+    setCurrentNumber(e.target.value)
     // oups, nothing happens when you type in the input, change this part to fix that
   };
 
