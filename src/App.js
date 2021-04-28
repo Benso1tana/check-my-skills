@@ -73,9 +73,7 @@ function App() {
     console.log(index)  ;
     shoppingList.splice(index-1, 1);
     setShoppingList(shoppingList);
-    setCurrentItem(" ");
-    
-    
+    setCurrentItem(" "); // pour mettre à jour l'interface 
     
   };
 
