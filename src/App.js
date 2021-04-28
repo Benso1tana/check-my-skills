@@ -53,10 +53,13 @@ function App() {
 
   const [currentItem, setCurrentItem] = useState("");
   const [currentNumber, setCurrentNumber] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(undefined); 
 
   const addItem = (e) => {
     e.preventDefault();
-    if (currentItem.trim() && currentNumber > 0) 
+    if (currentIndex == undefined) {
+      console.log("ajout")
+      if (currentItem.trim() && currentNumber > 0) 
     {
       setShoppingList([ ... shoppingList,{
 
@@ -65,8 +68,20 @@ function App() {
       ])
       setCurrentItem("")
       setCurrentNumber(0)
-      }
-    // don't forget to clear the input values after adding an item to the list
+      }else{alert("il faut remplir tous les champs ")}
+    }else{
+      if (currentItem.trim() && currentNumber > 0){   
+        console.log("modification")
+        let newList = [...shoppingList];
+        newList[currentIndex] = {title: currentItem, quantity: currentNumber}
+        setShoppingList(newList)
+        setCurrentItem("")
+        setCurrentNumber(0)  
+      }else{alert("il faut remplir tous les champs ")}
+
+    }
+    
+    // done
   };
 
   const removeItem = (index) => {
@@ -79,13 +94,21 @@ function App() {
 
   const onTextChanged = (e) => {
     setCurrentItem(e.target.value)
-    // oups, nothing happens when you type in the input, change this part to fix that
+    // Fixed ! 
   };
 
   const onNumberChanged = (e) => {
     setCurrentNumber(e.target.value)
-    // oups, nothing happens when you type in the input, change this part to fix that
+    // Fixed ! 
   };
+  
+
+  const updateItem = (index) => {
+      console.log(index);
+      setCurrentIndex(index);
+      setCurrentItem(shoppingList[index].title);
+      setCurrentNumber(shoppingList[index].quantity)
+  }
 
   return (
     <div className={classes.root}>
@@ -124,7 +147,7 @@ function App() {
             <List>
               {shoppingList.map((item, key) => {
                 return (
-                  <Item item={item} key={key} index={key} removeCallback={removeItem} />
+                  <Item item={item} key={key} index={key} editCallback={updateItem} removeCallback={removeItem}  />
                 );
               })}
             </List>
